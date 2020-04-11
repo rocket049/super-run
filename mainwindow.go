@@ -54,8 +54,14 @@ func (a *MyApp) Run() {
 	a.app.Exec()
 }
 
+func (a *MyApp) setIcon() {
+	icon := gui.NewQIcon5(filepath.Join(getAppPath(), "icon.png"))
+	a.window.SetWindowIcon(icon)
+}
+
 func (a *MyApp) createGui() {
 	parent := a.window
+	a.setIcon()
 	spliter1 := widgets.NewQSplitter2(core.Qt__Horizontal, parent)
 	spliter1.SetSizePolicy2(widgets.QSizePolicy__Expanding, widgets.QSizePolicy__Expanding)
 
@@ -300,7 +306,7 @@ func (a *MyApp) controlDialog(pIn io.ReadCloser, pOut io.WriteCloser, pErr io.Re
 	defer pOut.Close()
 	defer pErr.Close()
 	input.ConnectEditingFinished(func() {
-		pOut.Write([]byte(input.Text()))
+		pOut.Write([]byte(input.Text() + "\n"))
 	})
 
 	mrd := io.MultiReader(pIn, pErr)
