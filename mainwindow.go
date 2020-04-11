@@ -246,9 +246,11 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	input.SetReadOnly(false)
 
 	btRun.ConnectClicked(func(b bool) {
+		jcmd.OptDirs = [][]string{}
 		for k, v := range optMap {
 			jcmd.OptDirs = append(jcmd.OptDirs, []string{k, v})
 		}
+		jcmd.Dirs = []string{}
 		for _, v := range argArray {
 			jcmd.Dirs = append(jcmd.Dirs, v.Text())
 		}
