@@ -1,0 +1,6 @@
+{
+	"title":"Get Novel",
+	"command":"getnovel",
+	"opt_texts":[["开始序号","-from"]],
+	"texts":["URL"]
+}

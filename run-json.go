@@ -18,6 +18,7 @@ type JsonCmd struct {
 	Files    []string   `json:"files"`
 	OptDirs  [][]string `json:"opt_dirs"`
 	Dirs     []string   `json:"dirs"`
+	OptTexts [][]string `json:"opt_texts"`
 	Texts    []string   `json:"texts"`
 }
 

@@ -17,14 +17,16 @@
 #### 第二段：用户输入内容
 - work_dir：运行目录，可预定义
 	格式：dir:string
-- opt_files：带选项的文件路径，预先定义参数名字和该参数的前缀选项
+- opt_files：带标志选项的文件路径，预先定义参数名字和该参数的前缀选项
 	格式：[[name:string,opt:string]，...]
 - files：文件路径，预先定义名字
 	格式：[path:string,...]
-- opt_dirs：带选项的目录，预先定义参数名字和该参数的前缀选项
+- opt_dirs：带标志选项的目录，预先定义参数名字和该参数的前缀选项
 	格式：[[name:string,opt:string]，...]
 - dirs：目录，预先定义名字
 	格式：[dir:string,...]
+- opt_texts: 带标志选项的文本参数，预先定义参数名字和该参数的前缀选项
+    格式：[[name:string,opt:string]，...]
 - texts：文本参数，预先定义名字
 	格式：[name:string, ...]
 

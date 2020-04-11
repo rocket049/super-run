@@ -190,6 +190,17 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 		})
 		layout.AddWidget(line, 1, 0)
 	}
+	for _, v := range cfg.OptTexts {
+		name := v[0]
+		opt := v[1]
+		entry := widgets.NewQLineEdit(dialog)
+		entry.SetMinimumWidth(entryWidth)
+		line := a.createLine(name, entry, dialog)
+		entry.ConnectEditingFinished(func() {
+			optMap[opt] = entry.Text()
+		})
+		layout.AddWidget(line, 1, 0)
+	}
 
 	for _, v := range cfg.Dirs {
 		name := v
