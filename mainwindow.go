@@ -196,8 +196,13 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 		entry := widgets.NewQLineEdit(dialog)
 		entry.SetMinimumWidth(entryWidth)
 		line := a.createLine(name, entry, dialog)
-		entry.ConnectEditingFinished(func() {
-			optMap[opt] = entry.Text()
+		entry.ConnectTextChanged(func(s string) {
+			//s := entry.Text()
+			if len(s) == 0 {
+				delete(optMap, opt)
+			} else {
+				optMap[opt] = s
+			}
 		})
 		layout.AddWidget(line, 1, 0)
 	}
