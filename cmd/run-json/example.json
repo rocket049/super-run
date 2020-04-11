@@ -1,0 +1,11 @@
+{
+	"title":"go-build-win32",
+	"command":"go",
+	"pre_args":["build"],
+	"envs":["GOOS=windows","GOARCH=386"],
+	"work_dir":"/home/fuhz/gitee/dandao",
+	"opt_files":[["-ldflags","-s -w"]],
+	"files":[],
+	"opt_dirs":[],
+	"dirs":[]
+}
