@@ -17,6 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "Super Command"
+msgstr "超强命令"
+
 msgid "Work Dir"
 msgstr "运行目录"
 

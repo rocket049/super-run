@@ -46,7 +46,7 @@ type MyApp struct {
 func (a *MyApp) Run() {
 	a.app = widgets.NewQApplication(len(os.Args), os.Args)
 	a.window = widgets.NewQMainWindow(nil, core.Qt__Window)
-	a.window.SetWindowTitle(T("Super Run"))
+	a.window.SetWindowTitle(T("Super Command"))
 	a.window.SetFixedSize2(800, 600)
 	a.createGui()
 	a.app.SetActiveWindow(a.window)
