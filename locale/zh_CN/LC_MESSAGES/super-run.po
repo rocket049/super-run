@@ -29,3 +29,5 @@ msgstr "运行"
 msgid "Double Click To Select Path"
 msgstr "双击选择"
 
+msgid "Double Click To Run, Single Click To Read JSON"
+msgstr "双击运行，单击查看JSON文件的内容"

@@ -76,6 +76,7 @@ func (a *MyApp) createGui() {
 
 func (a *MyApp) fillList() {
 	list1 := a.list
+	list1.SetToolTip(T("Double Click To Run, Single Click To Read JSON"))
 	cfgDir, err := os.Open(filepath.Join(getAppPath(), "conf.d"))
 	if err != nil {
 		panic(err)
