@@ -1,6 +1,6 @@
 {
-	"title":"test opts",
-	"command":"/home/fuhz/gitee/super-run/cmd/opts/opts",
+	"title":"测试文件",
+	"command":"/opt/super-run/cmd/opts/opts",
 	"pre_args":["build","-ldflags","-s -w"],
 	"envs":[],
 	"work_dir":"/home/fuhz",
