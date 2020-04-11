@@ -1,0 +1,11 @@
+{
+	"title":"test opts 2",
+	"command":"/home/fuhz/gitee/super-run/cmd/opts/opts",
+	"pre_args":["build","-ldflags","-s -w"],
+	"envs":[],
+	"work_dir":"/home/fuhz",
+	"opt_files":[["输入文件","-i"],["输出文件","-o"]],
+	"files":["文件1","文件2"],
+	"opt_dirs":[["数据目录","-d"],["模板目录","-m"]],
+	"dirs":["目录1","目录2"]
+}
