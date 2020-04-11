@@ -1,5 +1,5 @@
 {
 	"title":"Baidu OCR",
 	"command":"/home/fuhz/go/bin/baiduocr",
-	"work_dir":"."
+	"work_dir":""
 }

@@ -141,6 +141,8 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	wdEntry.SetMinimumWidth(entryWidth)
 	wd := a.createLine(T("Work Dir"), wdEntry, dialog)
 	wdEntry.SetReadOnly(true)
+	wdEntry.SetToolTip(T("Double Click To Select Path"))
+	wdEntry.SetPlaceholderText(T("Double Click To Select Path"))
 	wdEntry.ConnectMouseDoubleClickEvent(func(e *gui.QMouseEvent) {
 		home, _ := os.UserHomeDir()
 		dir1 := widgets.QFileDialog_GetExistingDirectory(dialog, T("Work Dir"), home, widgets.QFileDialog__ShowDirsOnly)
@@ -152,6 +154,7 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 		name := v[0]
 		opt := v[1]
 		entry := widgets.NewQLineEdit(dialog)
+		entry.SetPlaceholderText(T("Double Click To Select Path"))
 		entry.SetMinimumWidth(entryWidth)
 		entry.SetReadOnly(true)
 		line := a.createLine(name, entry, dialog)
@@ -168,6 +171,7 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 		name := v[0]
 		opt := v[1]
 		entry := widgets.NewQLineEdit(dialog)
+		entry.SetPlaceholderText(T("Double Click To Select Path"))
 		entry.SetMinimumWidth(entryWidth)
 		entry.SetReadOnly(true)
 		line := a.createLine(name, entry, dialog)
@@ -183,6 +187,7 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	for _, v := range cfg.Dirs {
 		name := v
 		entry := widgets.NewQLineEdit(dialog)
+		entry.SetPlaceholderText(T("Double Click To Select Path"))
 		entry.SetMinimumWidth(entryWidth)
 		entry.SetReadOnly(true)
 		line := a.createLine(name, entry, dialog)
@@ -198,6 +203,7 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	for _, v := range cfg.Files {
 		name := v
 		entry := widgets.NewQLineEdit(dialog)
+		entry.SetPlaceholderText(T("Double Click To Select Path"))
 		entry.SetMinimumWidth(entryWidth)
 		entry.SetReadOnly(true)
 		line := a.createLine(name, entry, dialog)

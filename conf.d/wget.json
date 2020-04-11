@@ -2,6 +2,6 @@
 	"title":"Run wget command",
 	"command":"wget",
 	"pre_args":["-c"],
-	"work_dir":".",
+	"work_dir":"",
 	"texts":["URL"]
 }
