@@ -1,5 +1,6 @@
 {
-	"title":"Make",
+	"title":"make",
 	"command":"make",
-	"work_dir":""
+	"work_dir":"",
+	"help":"在运行目录中运行make命令"
 }

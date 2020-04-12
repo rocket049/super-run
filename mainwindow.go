@@ -339,7 +339,8 @@ func (a *MyApp) controlDialog(pIn io.ReadCloser, pOut io.WriteCloser, pErr io.Re
 		pOut.Write([]byte(input.Text() + "\n"))
 	})
 
-	mrd := io.MultiReader(pIn, pErr)
+	//mrd := io.MultiReader(pIn, pErr)
+	mrd := NewRandMultiReader(pIn, pErr)
 	brd := bufio.NewReader(mrd)
 	for {
 		line, _, err := brd.ReadLine()
