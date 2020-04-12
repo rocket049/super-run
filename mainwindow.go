@@ -274,7 +274,10 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 		}
 		jcmd.Dirs = []string{}
 		for _, v := range argArray {
-			jcmd.Dirs = append(jcmd.Dirs, v.Text())
+			s := v.Text()
+			if len(s) > 0 {
+				jcmd.Dirs = append(jcmd.Dirs, v.Text())
+			}
 		}
 		jcmd.WorkDir = wdEntry.Text()
 		pIn, pOut, pErr, err := runJsonCmd(&jcmd)
