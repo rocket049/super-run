@@ -2,5 +2,6 @@
 	"title":"Get Novel",
 	"command":"getnovel",
 	"opt_texts":[["开始序号","-from"]],
-	"texts":["URL"]
+	"texts":["URL"],
+	"help":"开始序号可以留空，默认值是1；\nURL必须输入。"
 }

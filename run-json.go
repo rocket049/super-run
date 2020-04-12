@@ -20,6 +20,7 @@ type JsonCmd struct {
 	Dirs     []string   `json:"dirs"`
 	OptTexts [][]string `json:"opt_texts"`
 	Texts    []string   `json:"texts"`
+	Help     string     `json:"help"`
 }
 
 func runJsonCmd(jcmd *JsonCmd) (pIn io.ReadCloser, pOut io.WriteCloser, pErr io.ReadCloser, err error) {
@@ -38,9 +39,10 @@ func runJsonCmd(jcmd *JsonCmd) (pIn io.ReadCloser, pOut io.WriteCloser, pErr io.
 	for _, v := range jcmd.Dirs {
 		args = append(args, v)
 	}
-	os.Chdir(jcmd.WorkDir)
+	//os.Chdir(jcmd.WorkDir)
 	//fmt.Printf("%v\n", args)
 	cmd := exec.Command(jcmd.Command, args...)
+	cmd.Dir = jcmd.WorkDir
 	pIn, err = cmd.StdoutPipe()
 	if err != nil {
 		return nil, nil, nil, err

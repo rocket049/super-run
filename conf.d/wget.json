@@ -3,5 +3,6 @@
 	"command":"wget",
 	"pre_args":["-c"],
 	"work_dir":"",
-	"texts":["URL"]
+	"texts":["URL"],
+	"help":"运行目录就是下载保存目录。"
 }

@@ -4,9 +4,10 @@
 	"pre_args":["build","-ldflags","-s -w"],
 	"envs":[],
 	"work_dir":"",
-	"opt_files":[["输入文件","-i"],["输出文件","-o"]],
-	"files":["文件1","文件2"],
-	"opt_dirs":[["数据目录","-d"],["模板目录","-m"]],
-	"dirs":["目录1","目录2"],
-	"texts":["下载地址"]
+	"opt_files":[["input file","-i"],["output file","-o"]],
+	"files":["file 1","file 2"],
+	"opt_dirs":[["data dir","-d"],["model dir","-m"]],
+	"dirs":["dir 1","dir 2"],
+	"texts":["dowload url"],
+	"help":["this is help message."]
 }

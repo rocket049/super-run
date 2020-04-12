@@ -4,6 +4,7 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
@@ -41,6 +42,7 @@ type MyApp struct {
 	window  *widgets.QMainWindow
 	list    *widgets.QListWidget
 	console *widgets.QTextEdit
+	num     int
 }
 
 func (a *MyApp) Run() {
@@ -118,6 +120,8 @@ func (a *MyApp) fillList() {
 
 func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	//cmd for run
+	a.num++
+
 	var jcmd JsonCmd
 	jcmd.Command = cfg.Command
 	jcmd.Envs = cfg.Envs
@@ -140,7 +144,7 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	}
 
 	dialog := widgets.NewQDialog(a.window, core.Qt__Dialog)
-	dialog.SetWindowTitle(cfg.Title)
+	dialog.SetWindowTitle(fmt.Sprintf("%s [%d]", cfg.Title, a.num))
 	layout := widgets.NewQVBoxLayout()
 
 	//提交运行时赋值给 jcmd.WorkDir
@@ -256,6 +260,7 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	layout.AddWidget(output, 1, 0)
 	output.SetReadOnly(true)
 	output.SetMinimumHeight(200)
+	output.Append(fmt.Sprintf("%s:\n%s\n", jcmd.Command, cfg.Help))
 
 	input := widgets.NewQLineEdit(dialog)
 	layout.AddWidget(input, 1, 0)
@@ -277,11 +282,12 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 			return
 		}
 		a.saveConf(filename, &jcmd)
-		go a.controlDialog(pIn, pOut, pErr, output, input)
+		btRun.SetDisabled(true)
+		go a.controlDialog(pIn, pOut, pErr, output, input, btRun)
 	})
 
 	dialog.SetLayout(layout)
-	dialog.SetModal(true)
+	dialog.SetModal(false)
 	dialog.Show()
 }
 
@@ -319,10 +325,12 @@ func (a *MyApp) loadSavedConf(cfgName string) (*JsonCmd, error) {
 }
 
 func (a *MyApp) controlDialog(pIn io.ReadCloser, pOut io.WriteCloser, pErr io.ReadCloser,
-	output *widgets.QTextEdit, input *widgets.QLineEdit) {
+	output *widgets.QTextEdit, input *widgets.QLineEdit, btRun *widgets.QPushButton) {
 	defer pIn.Close()
 	defer pOut.Close()
 	defer pErr.Close()
+	defer btRun.SetDisabled(false)
+
 	input.ConnectEditingFinished(func() {
 		pOut.Write([]byte(input.Text() + "\n"))
 	})
