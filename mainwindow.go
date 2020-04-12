@@ -12,6 +12,8 @@ import (
 	"path/filepath"
 	"sort"
 
+	"gitee.com/rocket049/multireader"
+
 	"github.com/therecipe/qt/gui"
 
 	"github.com/rocket049/gettext-go/gettext"
@@ -340,7 +342,7 @@ func (a *MyApp) controlDialog(pIn io.ReadCloser, pOut io.WriteCloser, pErr io.Re
 	})
 
 	//mrd := io.MultiReader(pIn, pErr)
-	mrd := NewRandMultiReader(pIn, pErr)
+	mrd := multireader.NewRandMultiReader(pIn, pErr)
 	brd := bufio.NewReader(mrd)
 	for {
 		line, _, err := brd.ReadLine()
