@@ -9,5 +9,5 @@
 	"opt_dirs":[["data dir","-d"],["model dir","-m"]],
 	"dirs":["dir 1","dir 2"],
 	"texts":["dowload url"],
-	"help":["this is help message."]
+	"help":"this is help message."
 }

@@ -112,7 +112,8 @@ func (a *MyApp) fillList() {
 		cfg := filepath.Join(getAppPath(), "conf.d", fn)
 		cfgWin, err := readJsonCmd(cfg)
 		if err != nil {
-			panic(err)
+			a.console.Append("\n" + err.Error())
+			return
 		}
 		a.showCmdWin(cfgWin, fn)
 	})
