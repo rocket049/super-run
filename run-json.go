@@ -23,7 +23,7 @@ type JsonCmd struct {
 	Help     string     `json:"help"`
 }
 
-func runJsonCmd(jcmd *JsonCmd) (pIn io.ReadCloser, pOut io.WriteCloser, pErr io.ReadCloser, err error) {
+func getArgs(jcmd *JsonCmd) []string {
 	args := []string{}
 	args = append(args, jcmd.PreArgs...)
 
@@ -39,6 +39,11 @@ func runJsonCmd(jcmd *JsonCmd) (pIn io.ReadCloser, pOut io.WriteCloser, pErr io.
 	for _, v := range jcmd.Dirs {
 		args = append(args, v)
 	}
+	return args
+}
+
+func runJsonCmd(jcmd *JsonCmd) (pIn io.ReadCloser, pOut io.WriteCloser, pErr io.ReadCloser, err error) {
+	args := getArgs(jcmd)
 	//os.Chdir(jcmd.WorkDir)
 	//fmt.Printf("%v\n", args)
 	cmd := exec.Command(jcmd.Command, args...)
