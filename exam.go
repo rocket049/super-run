@@ -1,8 +1,7 @@
 package main
 
 /*
-#cgo CXXFLAGS: -I/usr/local/include -I/usr/local/include/qtermwidget5 -I/home/fuhz/Qt514/5.14.1/gcc_64/include/QtWidgets -I/home/fuhz/Qt514/5.14.1/gcc_64/include -I/home/fuhz/Qt514/5.14.1/gcc_64/include/QtGui -I/home/fuhz/Qt514/5.14.1/gcc_64/include/QtCore
-#cgo LDFLAGS: -L/home/fuhz/src/qterm -lqtermwidget5 -L/home/fuhz/Qt514/5.14.1/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lQt5Quick -lQt5Designer -lQt5Qml -lQt5Multimedia -lQt5Network -lQt5Xml -lQt5DBus -lQt5RemoteObjects
+#cgo pkg-config: qtermwidget5 Qt5Widgets Qt5Gui Qt5Core
 #include <stdlib.h>
 
 extern void* createTermWidget(int startnow, void * parent);
