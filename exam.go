@@ -22,8 +22,8 @@ func getQTermPtr() uintptr {
 }
 
 func termChangeDir(p uintptr, d string) {
-	arg := strings.Replace(d, "'", "\\'", 0)
-	termSendText(p, "cd '"+arg+"'\n")
+	arg := strings.Replace(d, "\"", "\\\"", 0)
+	termSendText(p, "cd \""+arg+"\"\n")
 }
 
 func termSendText(p uintptr, s string) {
@@ -45,8 +45,8 @@ func buildCmdLine(prog string, envs, args []string) string {
 	}
 	cmd = append(cmd, prog)
 	for _, v := range args {
-		arg := strings.Replace(v, "'", "\\'", 0)
-		cmd = append(cmd, "'"+arg+"'")
+		arg := strings.Replace(v, "\"", "\\\"", 0)
+		cmd = append(cmd, "\""+arg+"\"")
 	}
 	return strings.Join(cmd, " \\\n") + "\n"
 }
