@@ -2,6 +2,7 @@
 #include <QString>
 #include <QList>
 #include <QStringList>
+#include <QObject>
 #include <stdio.h>
 
 extern "C" {
@@ -10,6 +11,7 @@ extern "C" {
     void termSendText(void *p,char *s);
     void termSetMinimumHeight(void *p,int minh);
     char *termSelectedText(void *p);
+    void termConnectFinish2Close(void *p);
 }
 
 void *createTermWidget(int startnow, void *parent)
@@ -36,4 +38,9 @@ char *termSelectedText(void *p){
     QTermWidget *t=(QTermWidget*)p;
     QString s=t->selectedText(true);
     return s.toUtf8().data();
+}
+
+void termConnectFinish2Close(void *p){
+    QTermWidget *t=(QTermWidget*)p;
+    QObject::connect(t,SIGNAL(finished()),t->parentWidget(),SLOT(close()));
 }

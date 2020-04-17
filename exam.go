@@ -8,6 +8,7 @@ extern void* createTermWidget(int startnow, void * parent);
 extern void termSendText(void *p,char *s);
 extern void termSetMinimumHeight(void *p,int minh);
 extern char *termSelectedText(void *p);
+extern void termConnectFinish2Close(void *p);
 */
 import "C"
 
@@ -16,8 +17,8 @@ import (
 	"unsafe"
 )
 
-func getQTermPtr() uintptr {
-	t := C.createTermWidget(1, nil)
+func getQTermPtr(p unsafe.Pointer) uintptr {
+	t := C.createTermWidget(1, p)
 	return uintptr(t)
 }
 
@@ -36,6 +37,10 @@ func termSetMiniHeight(p uintptr, h int) {
 
 func termSelectedText(p uintptr) string {
 	return C.GoString(C.termSelectedText(unsafe.Pointer(p)))
+}
+
+func termConnectFinish2Close(p uintptr) {
+	C.termConnectFinish2Close(unsafe.Pointer(p))
 }
 
 func buildCmdLine(prog string, envs, args []string) string {

@@ -269,10 +269,11 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	label := widgets.NewQLabel2(cfg.Help, dialog, core.Qt__Widget)
 	layout.AddWidget(label, 1, 0)
 
-	p := getQTermPtr()
+	p := getQTermPtr(dialog.Pointer())
 	term := widgets.NewQWidgetFromPointer(unsafe.Pointer(p))
 	termSetMiniHeight(p, 200)
 	layout.AddWidget(term, 1, 0)
+	termConnectFinish2Close(p)
 
 	btGetText := widgets.NewQPushButton2(T("Copy Selected Text"), dialog)
 	layout.AddWidget(btGetText, 1, 0)
