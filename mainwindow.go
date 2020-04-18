@@ -143,7 +143,7 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 		cfg.WorkDir = savedCfg.WorkDir
 	}
 
-	dialog := widgets.NewQDialog(a.window, core.Qt__Dialog)
+	dialog := widgets.NewQDialog(a.window, core.Qt__Window)
 	dialog.SetWindowTitle(fmt.Sprintf("%s [%d]", cfg.Title, a.num))
 	layout := widgets.NewQVBoxLayout()
 
