@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'qtermwidget.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.12.4)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.5)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'qtermwidget.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.12.4. It"
+#error "This file was generated using the moc from 5.9.5. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -101,7 +101,7 @@ QT_MOC_LITERAL(46, 537, 21) // "blinkingCursorEnabled"
 static const uint qt_meta_data_QTermWidget[] = {
 
  // content:
-       8,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
       30,   14, // methods
@@ -185,7 +185,7 @@ static const uint qt_meta_data_QTermWidget[] = {
 void QTermWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<QTermWidget *>(_o);
+        QTermWidget *_t = static_cast<QTermWidget *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->finished(); break;
@@ -223,91 +223,91 @@ void QTermWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (QTermWidget::*)();
+            typedef void (QTermWidget::*_t)();
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&QTermWidget::finished)) {
                 *result = 0;
                 return;
             }
         }
         {
-            using _t = void (QTermWidget::*)(bool );
+            typedef void (QTermWidget::*_t)(bool );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&QTermWidget::copyAvailable)) {
                 *result = 1;
                 return;
             }
         }
         {
-            using _t = void (QTermWidget::*)();
+            typedef void (QTermWidget::*_t)();
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&QTermWidget::termGetFocus)) {
                 *result = 2;
                 return;
             }
         }
         {
-            using _t = void (QTermWidget::*)();
+            typedef void (QTermWidget::*_t)();
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&QTermWidget::termLostFocus)) {
                 *result = 3;
                 return;
             }
         }
         {
-            using _t = void (QTermWidget::*)(QKeyEvent * );
+            typedef void (QTermWidget::*_t)(QKeyEvent * );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&QTermWidget::termKeyPressed)) {
                 *result = 4;
                 return;
             }
         }
         {
-            using _t = void (QTermWidget::*)(const QUrl & , bool );
+            typedef void (QTermWidget::*_t)(const QUrl & , bool );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&QTermWidget::urlActivated)) {
                 *result = 5;
                 return;
             }
         }
         {
-            using _t = void (QTermWidget::*)(const QString & );
+            typedef void (QTermWidget::*_t)(const QString & );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&QTermWidget::bell)) {
                 *result = 6;
                 return;
             }
         }
         {
-            using _t = void (QTermWidget::*)();
+            typedef void (QTermWidget::*_t)();
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&QTermWidget::activity)) {
                 *result = 7;
                 return;
             }
         }
         {
-            using _t = void (QTermWidget::*)();
+            typedef void (QTermWidget::*_t)();
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&QTermWidget::silence)) {
                 *result = 8;
                 return;
             }
         }
         {
-            using _t = void (QTermWidget::*)(const char * , int );
+            typedef void (QTermWidget::*_t)(const char * , int );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&QTermWidget::sendData)) {
                 *result = 9;
                 return;
             }
         }
         {
-            using _t = void (QTermWidget::*)(const QString & );
+            typedef void (QTermWidget::*_t)(const QString & );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&QTermWidget::profileChanged)) {
                 *result = 10;
                 return;
             }
         }
         {
-            using _t = void (QTermWidget::*)();
+            typedef void (QTermWidget::*_t)();
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&QTermWidget::titleChanged)) {
                 *result = 11;
                 return;
             }
         }
         {
-            using _t = void (QTermWidget::*)(const QString & );
+            typedef void (QTermWidget::*_t)(const QString & );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&QTermWidget::receivedData)) {
                 *result = 12;
                 return;
@@ -316,14 +316,10 @@ void QTermWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject QTermWidget::staticMetaObject = { {
-    &QWidget::staticMetaObject,
-    qt_meta_stringdata_QTermWidget.data,
-    qt_meta_data_QTermWidget,
-    qt_static_metacall,
-    nullptr,
-    nullptr
-} };
+const QMetaObject QTermWidget::staticMetaObject = {
+    { &QWidget::staticMetaObject, qt_meta_stringdata_QTermWidget.data,
+      qt_meta_data_QTermWidget,  qt_static_metacall, nullptr, nullptr}
+};
 
 
 const QMetaObject *QTermWidget::metaObject() const
