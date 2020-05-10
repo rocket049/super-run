@@ -2,5 +2,6 @@
 	"title":"make",
 	"command":"make",
 	"work_dir":"",
+	"texts":["参数"],
 	"help":"在运行目录中运行make命令"
 }
