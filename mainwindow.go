@@ -2,17 +2,14 @@
 package main
 
 import (
-	"bufio"
 	"encoding/json"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
 	"sort"
-
-	"gitee.com/rocket049/multireader"
+	"unsafe"
 
 	"github.com/therecipe/qt/gui"
 
@@ -146,7 +143,7 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 		cfg.WorkDir = savedCfg.WorkDir
 	}
 
-	dialog := widgets.NewQDialog(a.window, core.Qt__Dialog)
+	dialog := widgets.NewQDialog(a.window, core.Qt__Window)
 	dialog.SetWindowTitle(fmt.Sprintf("%s [%d]", cfg.Title, a.num))
 	layout := widgets.NewQVBoxLayout()
 
@@ -259,15 +256,27 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	btRun := widgets.NewQPushButton2(T("Run"), dialog)
 	layout.AddWidget(btRun, 1, 0)
 
-	output := widgets.NewQTextEdit(dialog)
-	layout.AddWidget(output, 1, 0)
-	output.SetReadOnly(true)
-	output.SetMinimumHeight(200)
-	output.Append(fmt.Sprintf("%s:\n%s\n", jcmd.Command, cfg.Help))
+	// output := widgets.NewQTextEdit(dialog)
+	// layout.AddWidget(output, 1, 0)
+	// output.SetReadOnly(true)
+	// output.SetMinimumHeight(200)
+	// output.Append(fmt.Sprintf("%s:\n%s\n", jcmd.Command, cfg.Help))
 
-	input := widgets.NewQLineEdit(dialog)
-	layout.AddWidget(input, 1, 0)
-	input.SetReadOnly(false)
+	// input := widgets.NewQLineEdit(dialog)
+	// layout.AddWidget(input, 1, 0)
+	// input.SetReadOnly(false)
+
+	label := widgets.NewQLabel2(cfg.Help, dialog, core.Qt__Widget)
+	layout.AddWidget(label, 1, 0)
+
+	p := getQTermPtr(dialog.Pointer())
+	term := widgets.NewQWidgetFromPointer(unsafe.Pointer(p))
+	termSetMiniHeight(p, 200)
+	layout.AddWidget(term, 1, 0)
+	termConnectFinish2Close(p)
+
+	btGetText := widgets.NewQPushButton2(T("Copy Selected Text"), dialog)
+	layout.AddWidget(btGetText, 1, 0)
 
 	btRun.ConnectClicked(func(b bool) {
 		jcmd.OptDirs = [][]string{}
@@ -282,14 +291,26 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 			}
 		}
 		jcmd.WorkDir = wdEntry.Text()
-		pIn, pOut, pErr, err := runJsonCmd(&jcmd)
-		if err != nil {
-			output.SetText(err.Error())
-			return
-		}
 		a.saveConf(filename, &jcmd)
-		btRun.SetDisabled(true)
-		go a.controlDialog(pIn, pOut, pErr, output, input, btRun)
+
+		args := getArgs(&jcmd)
+		termChangeDir(p, jcmd.WorkDir)
+		termSendText(p, buildCmdLine(jcmd.Command, jcmd.Envs, args))
+		return
+
+		// pIn, pOut, pErr, err := runJsonCmd(&jcmd)
+		// if err != nil {
+		// 	output.SetText(err.Error())
+		// 	return
+		// }
+		// a.saveConf(filename, &jcmd)
+		// btRun.SetDisabled(true)
+		// go a.controlDialog(pIn, pOut, pErr, output, input, btRun)
+	})
+
+	btGetText.ConnectClicked(func(b bool) {
+		//fmt.Println(termSelectedText(p))
+		a.app.Clipboard().SetText(termSelectedText(p), gui.QClipboard__Clipboard)
 	})
 
 	dialog.SetLayout(layout)
@@ -330,28 +351,27 @@ func (a *MyApp) loadSavedConf(cfgName string) (*JsonCmd, error) {
 	return res, nil
 }
 
-func (a *MyApp) controlDialog(pIn io.ReadCloser, pOut io.WriteCloser, pErr io.ReadCloser,
-	output *widgets.QTextEdit, input *widgets.QLineEdit, btRun *widgets.QPushButton) {
-	defer pIn.Close()
-	defer pOut.Close()
-	defer pErr.Close()
-	defer btRun.SetDisabled(false)
+// func (a *MyApp) controlDialog(pIn io.ReadCloser, pOut io.WriteCloser, pErr io.ReadCloser,
+// 	output *widgets.QTextEdit, input *widgets.QLineEdit, btRun *widgets.QPushButton) {
+// 	defer pIn.Close()
+// 	defer pOut.Close()
+// 	defer pErr.Close()
+// 	defer btRun.SetDisabled(false)
 
-	input.ConnectEditingFinished(func() {
-		pOut.Write([]byte(input.Text() + "\n"))
-	})
+// 	input.ConnectEditingFinished(func() {
+// 		pOut.Write([]byte(input.Text() + "\n"))
+// 	})
 
-	//mrd := io.MultiReader(pIn, pErr)
-	mrd := multireader.NewRandMultiReader(pIn, pErr)
-	brd := bufio.NewReader(mrd)
-	for {
-		line, _, err := brd.ReadLine()
-		if err != nil {
-			break
-		}
-		output.Append(string(line))
-	}
-}
+// 	mrd := multireader.NewRandMultiReader(pIn, pErr)
+// 	brd := bufio.NewReader(mrd)
+// 	for {
+// 		line, _, err := brd.ReadLine()
+// 		if err != nil {
+// 			break
+// 		}
+// 		output.Append(string(line))
+// 	}
+// }
 
 func (a *MyApp) createLine(name string, entry *widgets.QLineEdit, parent widgets.QWidget_ITF) *widgets.QWidget {
 	res := widgets.NewQWidget(parent, core.Qt__Widget)
