@@ -171,6 +171,9 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 		line := a.createLine(name, entry, dialog)
 		entry.ConnectMouseDoubleClickEvent(func(e *gui.QMouseEvent) {
 			home, _ := os.UserHomeDir()
+			if len(wdEntry.Text()) > 0 {
+				home = wdEntry.Text()
+			}
 			dir1 := widgets.QFileDialog_GetExistingDirectory(dialog, name, home, widgets.QFileDialog__ShowDirsOnly)
 			entry.SetText(dir1)
 			optMap[opt] = dir1
@@ -188,6 +191,9 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 		line := a.createLine(name, entry, dialog)
 		entry.ConnectMouseDoubleClickEvent(func(e *gui.QMouseEvent) {
 			home, _ := os.UserHomeDir()
+			if len(wdEntry.Text()) > 0 {
+				home = wdEntry.Text()
+			}
 			path1 := widgets.QFileDialog_GetOpenFileName(dialog, name, home, "*", "*", widgets.QFileDialog__ReadOnly)
 			entry.SetText(path1)
 			optMap[opt] = path1
@@ -220,6 +226,9 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 		line := a.createLine(name, entry, dialog)
 		entry.ConnectMouseDoubleClickEvent(func(e *gui.QMouseEvent) {
 			home, _ := os.UserHomeDir()
+			if len(wdEntry.Text()) > 0 {
+				home = wdEntry.Text()
+			}
 			path1 := widgets.QFileDialog_GetExistingDirectory(dialog, name, home, widgets.QFileDialog__ShowDirsOnly)
 			entry.SetText(path1)
 		})
@@ -236,6 +245,9 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 		line := a.createLine(name, entry, dialog)
 		entry.ConnectMouseDoubleClickEvent(func(e *gui.QMouseEvent) {
 			home, _ := os.UserHomeDir()
+			if len(wdEntry.Text()) > 0 {
+				home = wdEntry.Text()
+			}
 			path1 := widgets.QFileDialog_GetOpenFileName(dialog, name, home, "*", "*", widgets.QFileDialog__ReadOnly)
 			entry.SetText(path1)
 		})
