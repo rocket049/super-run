@@ -12,6 +12,7 @@ extern "C" {
     void termSetMinimumHeight(void *p,int minh);
     char *termSelectedText(void *p);
     void termConnectFinish2Close(void *p);
+    void termSetTermFont(void *p, void *f);
 }
 
 void *createTermWidget(int startnow, void *parent)
@@ -43,4 +44,10 @@ char *termSelectedText(void *p){
 void termConnectFinish2Close(void *p){
     QTermWidget *t=(QTermWidget*)p;
     QObject::connect(t,SIGNAL(finished()),t->parentWidget(),SLOT(close()));
+}
+
+void termSetTermFont(void *p, void *f) {
+    QTermWidget *t=(QTermWidget*)p;
+    QFont *ft1=(QFont *)f;
+    t->setTerminalFont(*ft1);
 }

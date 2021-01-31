@@ -1,2 +1,4 @@
 super-run
 /deploy
+*.o
+*.moc.cpp

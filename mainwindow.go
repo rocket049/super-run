@@ -42,6 +42,7 @@ type MyApp struct {
 	list    *widgets.QListWidget
 	console *widgets.QTextEdit
 	num     int
+	term    *widgets.QWidget
 }
 
 func (a *MyApp) Run() {
@@ -271,8 +272,10 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 
 	p := getQTermPtr(dialog.Pointer())
 	term := widgets.NewQWidgetFromPointer(unsafe.Pointer(p))
-	//ft1 := gui.NewQFont2("Song", 24, 50, false)
+	ft1 := gui.NewQFont2("Song", 16, 50, false)
 	//term.SetFont(ft1)
+	a.term = term
+	termSetTermFont(p, ft1.Pointer())
 	termSetMiniHeight(p, 200)
 	layout.AddWidget(term, 1, 0)
 	termConnectFinish2Close(p)
