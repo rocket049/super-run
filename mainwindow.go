@@ -276,7 +276,7 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	//term.SetFont(ft1)
 	a.term = term
 	termSetTermFont(p, ft1.Pointer())
-	termSetMiniHeight(p, 200)
+	termSetMiniHeight(p, 300)
 	layout.AddWidget(term, 1, 0)
 	termConnectFinish2Close(p)
 
