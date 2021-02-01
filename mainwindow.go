@@ -272,7 +272,7 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 
 	p := getQTermPtr(dialog.Pointer())
 	term := widgets.NewQWidgetFromPointer(unsafe.Pointer(p))
-	ft1 := gui.NewQFont2("WenQuanYi Zen Hei", 16, 50, false)
+	ft1 := gui.NewQFont2("WenQuanYi Zen Hei Mono", 16, 50, false)
 	//fmt.Println(ft1.DefaultFamily())
 	//term.SetFont(ft1)
 	a.term = term
