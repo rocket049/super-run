@@ -13,6 +13,7 @@ extern "C" {
     char *termSelectedText(void *p);
     void termConnectFinish2Close(void *p);
     void termSetTermFont(void *p, void *f);
+    void termSendKeyEvent(void *p, void *e);
 }
 
 void *createTermWidget(int startnow, void *parent)
@@ -50,4 +51,10 @@ void termSetTermFont(void *p, void *f) {
     QTermWidget *t=(QTermWidget*)p;
     QFont *ft1=(QFont *)f;
     t->setTerminalFont(*ft1);
+}
+
+void termSendKeyEvent(void *p, void *e) {
+    QTermWidget *t=(QTermWidget*)p;
+    QKeyEvent *evt=(QKeyEvent*)e;
+    t->sendKeyEvent(evt);
 }

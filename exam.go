@@ -10,6 +10,7 @@ extern void termSetMinimumHeight(void *p,int minh);
 extern char *termSelectedText(void *p);
 extern void termConnectFinish2Close(void *p);
 extern void termSetTermFont(void *p, void *f);
+extern void termSendKeyEvent(void *p, void *e);
 */
 import "C"
 
@@ -59,4 +60,8 @@ func buildCmdLine(prog string, envs, args []string) string {
 
 func termSetTermFont(p uintptr, f unsafe.Pointer) {
 	C.termSetTermFont(unsafe.Pointer(p), f)
+}
+
+func termSendKeyEvent(p uintptr, e unsafe.Pointer) {
+	C.termSendKeyEvent(unsafe.Pointer(p), e)
 }

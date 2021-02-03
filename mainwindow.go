@@ -42,7 +42,6 @@ type MyApp struct {
 	list    *widgets.QListWidget
 	console *widgets.QTextEdit
 	num     int
-	term    *widgets.QWidget
 }
 
 func (a *MyApp) Run() {
@@ -275,7 +274,7 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	ft1 := gui.NewQFont2("WenQuanYi Zen Hei Mono", 16, 50, false)
 	//fmt.Println(ft1.DefaultFamily())
 	//term.SetFont(ft1)
-	a.term = term
+
 	termSetTermFont(p, ft1.Pointer())
 	termSetMiniHeight(p, 300)
 	layout.AddWidget(term, 1, 0)
@@ -317,6 +316,11 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	btGetText.ConnectClicked(func(b bool) {
 		//fmt.Println(termSelectedText(p))
 		a.app.Clipboard().SetText(termSelectedText(p), gui.QClipboard__Clipboard)
+	})
+
+	dialog.ConnectCloseEvent(func(e *gui.QCloseEvent) {
+		kE := gui.NewQKeyEvent(core.QEvent__KeyPress, int(core.Qt__Key_C), core.Qt__ControlModifier, "ctrl-c", false, 1)
+		termSendKeyEvent(uintptr(term.Pointer()), kE.Pointer())
 	})
 
 	dialog.SetLayout(layout)
