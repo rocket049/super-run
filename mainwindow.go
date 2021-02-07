@@ -9,6 +9,7 @@ import (
 	"path"
 	"path/filepath"
 	"sort"
+	"strings"
 	"unsafe"
 
 	"github.com/therecipe/qt/gui"
@@ -81,6 +82,16 @@ func (a *MyApp) createGui() {
 	parent.SetCentralWidget(spliter1)
 }
 
+func (a *MyApp) decreaseList(l []string) []string {
+	res := make([]string, 0, len(l))
+	for i := range l {
+		if strings.HasSuffix(l[i], ".json") {
+			res = append(res, l[i])
+		}
+	}
+	return res
+}
+
 func (a *MyApp) fillList() {
 	list1 := a.list
 	list1.SetToolTip(T("Double Click To Run, Single Click To Read JSON"))
@@ -93,6 +104,7 @@ func (a *MyApp) fillList() {
 	if err != nil {
 		panic(err)
 	}
+	names = a.decreaseList(names)
 	sort.Strings(names)
 	list1.AddItems(names)
 	list1.ConnectSelectionChanged(func(sel *core.QItemSelection, desel *core.QItemSelection) {
