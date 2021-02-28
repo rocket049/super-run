@@ -151,7 +151,7 @@ func (a *MyApp) getSysJsons() []string {
 func (a *MyApp) getUserJsons() []string {
 	cfgDir, err := os.Open(filepath.Join(getUserPath(), ".super-run"))
 	if err != nil {
-		panic(err)
+		return []string{}
 	}
 	defer cfgDir.Close()
 	names, err := cfgDir.Readdirnames(0)
