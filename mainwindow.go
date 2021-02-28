@@ -36,6 +36,13 @@ func getAppPath() string {
 	}
 	return filepath.Dir(exe1)
 }
+func getUserPath() string {
+	d, err := os.UserHomeDir()
+	if err != nil {
+		panic(err)
+	}
+	return d
+}
 
 type MyApp struct {
 	app     *widgets.QApplication
@@ -71,7 +78,7 @@ func (a *MyApp) createGui() {
 	a.list.SetSizePolicy2(widgets.QSizePolicy__Preferred, widgets.QSizePolicy__Expanding)
 	spliter1.AddWidget(a.list)
 	a.list.SetSelectionMode(widgets.QAbstractItemView__SingleSelection)
-	a.fillList()
+	a.fillList2()
 
 	a.console = widgets.NewQTextEdit(spliter1)
 	a.console.SetMinimumWidth(600)
@@ -90,6 +97,70 @@ func (a *MyApp) decreaseList(l []string) []string {
 		}
 	}
 	return res
+}
+
+func (a *MyApp) modifyList(l []string, pre string) []string {
+	res := make([]string, 0, len(l))
+	for i := range l {
+		if strings.HasSuffix(l[i], ".json") {
+			res = append(res, pre+l[i])
+		}
+	}
+	return res
+}
+
+func (a *MyApp) readJsonInList(fn string) ([]byte, error) {
+	rv := []rune(fn)
+	var p string
+	if strings.HasPrefix(fn, "*") {
+		p = filepath.Join(getAppPath(), "conf.d", string(rv[1:]))
+	}
+	if strings.HasPrefix(fn, "+") {
+		p = filepath.Join(getUserPath(), ".super-run", string(rv[1:]))
+	}
+	return ioutil.ReadFile(p)
+}
+
+func (a *MyApp) convertPathInList(fn string) string {
+	rv := []rune(fn)
+	var p string
+	if strings.HasPrefix(fn, "*") {
+		p = filepath.Join(getAppPath(), "conf.d", string(rv[1:]))
+	}
+	if strings.HasPrefix(fn, "+") {
+		p = filepath.Join(getUserPath(), ".super-run", string(rv[1:]))
+	}
+	return p
+}
+
+func (a *MyApp) getSysJsons() []string {
+	cfgDir, err := os.Open(filepath.Join(getAppPath(), "conf.d"))
+	if err != nil {
+		panic(err)
+	}
+	defer cfgDir.Close()
+	names, err := cfgDir.Readdirnames(0)
+	if err != nil {
+		panic(err)
+	}
+	names = a.modifyList(names, "*")
+	sort.Strings(names)
+	return names
+}
+
+func (a *MyApp) getUserJsons() []string {
+	cfgDir, err := os.Open(filepath.Join(getUserPath(), ".super-run"))
+	if err != nil {
+		panic(err)
+	}
+	defer cfgDir.Close()
+	names, err := cfgDir.Readdirnames(0)
+	if err != nil {
+		panic(err)
+	}
+	names = a.modifyList(names, "+")
+	sort.Strings(names)
+	return names
 }
 
 func (a *MyApp) fillList() {
@@ -121,6 +192,36 @@ func (a *MyApp) fillList() {
 	list1.ConnectItemDoubleClicked(func(item *widgets.QListWidgetItem) {
 		fn := item.Data(0).ToString()
 		cfg := filepath.Join(getAppPath(), "conf.d", fn)
+		cfgWin, err := readJsonCmd(cfg)
+		if err != nil {
+			a.console.Append("\n" + err.Error())
+			return
+		}
+		a.showCmdWin(cfgWin, fn)
+	})
+}
+
+func (a *MyApp) fillList2() {
+	list1 := a.list
+	list1.SetToolTip(T("Double Click To Run, Single Click To Read JSON"))
+	names1 := a.getSysJsons()
+	list1.AddItems(names1)
+	names2 := a.getUserJsons()
+	list1.AddItems(names2)
+
+	list1.ConnectSelectionChanged(func(sel *core.QItemSelection, desel *core.QItemSelection) {
+		item1 := list1.Item(sel.Indexes()[0].Row())
+		fn := item1.Data(0).ToString()
+		data, err := a.readJsonInList(fn)
+		if err != nil {
+			a.console.SetText(fn + "\n" + err.Error())
+		} else {
+			a.console.SetText(string(data))
+		}
+	})
+	list1.ConnectItemDoubleClicked(func(item *widgets.QListWidgetItem) {
+		fn := item.Data(0).ToString()
+		cfg := a.convertPathInList(fn)
 		cfgWin, err := readJsonCmd(cfg)
 		if err != nil {
 			a.console.Append("\n" + err.Error())
