@@ -20,6 +20,7 @@ type JsonCmd struct {
 	Dirs     []string   `json:"dirs"`
 	OptTexts [][]string `json:"opt_texts"`
 	Texts    []string   `json:"texts"`
+	TailArgs []string   `json:"tail_args"`
 	Help     string     `json:"help"`
 }
 
@@ -37,6 +38,9 @@ func getArgs(jcmd *JsonCmd) []string {
 		args = append(args, v)
 	}
 	for _, v := range jcmd.Dirs {
+		args = append(args, v)
+	}
+	for _, v := range jcmd.TailArgs {
 		args = append(args, v)
 	}
 	return args

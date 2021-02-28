@@ -239,6 +239,7 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	jcmd.Command = cfg.Command
 	jcmd.Envs = cfg.Envs
 	jcmd.PreArgs = cfg.PreArgs
+	jcmd.TailArgs = cfg.TailArgs
 
 	jcmd.Dirs = []string{}
 	jcmd.Files = []string{}
