@@ -266,7 +266,14 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	}
 
 	btRun := widgets.NewQPushButton2(T("Run"), dialog)
-	layout.AddWidget(btRun, 1, 0)
+	//layout.AddWidget(btRun, 1, 0)
+	btBox := widgets.NewQHBoxLayout()
+	btBox.AddWidget(btRun, 1, 0)
+
+	btStop := widgets.NewQPushButton2(T("Ctrl-C"), dialog)
+	btBox.AddWidget(btStop, 1, 0)
+
+	layout.AddLayout(btBox, 1)
 
 	// output := widgets.NewQTextEdit(dialog)
 	// layout.AddWidget(output, 1, 0)
@@ -331,6 +338,11 @@ func (a *MyApp) showCmdWin(cfg *JsonCmd, filename string) {
 	})
 
 	dialog.ConnectCloseEvent(func(e *gui.QCloseEvent) {
+		kE := gui.NewQKeyEvent(core.QEvent__KeyPress, int(core.Qt__Key_C), core.Qt__ControlModifier, "ctrl-c", false, 1)
+		termSendKeyEvent(uintptr(term.Pointer()), kE.Pointer())
+	})
+
+	btStop.ConnectClicked(func(b bool) {
 		kE := gui.NewQKeyEvent(core.QEvent__KeyPress, int(core.Qt__Key_C), core.Qt__ControlModifier, "ctrl-c", false, 1)
 		termSendKeyEvent(uintptr(term.Pointer()), kE.Pointer())
 	})
