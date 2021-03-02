@@ -9,8 +9,10 @@
 	格式：string
 * command：命令名字或者路径
 	格式：string
-* pre_args：预设参数
+* pre_args：预设参数，位于其他参数之前
 	格式：[string，string，...]
+* tail_args：预设参数，位于其他参数之后
+    格式：[string，string，...]
 * envs：环境变量
 	格式：[“name=value”，...]
 
